@@ -10,24 +10,28 @@
   </style>
 </head>
 <body>
-  <img src="https://picsum.photos/200" onload="notifyWebhook()">
+  <img
+  src="https://api.allorigins.win/raw?url=https://chl-7a6fada8-2863-407c-9e3e-b6584ecf0043-imagen-importante.softwareseguro.com.ar/profile-pic"
+  onload="notifyWebhook(this)"
+  alt="Imagen importante"
+/>
 
-  <script>
-    async function notifyWebhook() {
-      const img = document.getElementById('img');
-      const width = img.naturalWidth;
-      const height = img.naturalHeight;
+<script>
+  async function notifyWebhook(img) {
+    const width = img.naturalWidth;
+    const height = img.naturalHeight;
 
-      try {
-        await fetch('https://webhook.site/65240bdf-b0e0-4a90-9a32-61ac4568473b', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ width, height })
-        });
-      } catch (err) {
-        console.error('Error al enviar el webhook:', err);
-      }
+    try {
+      await fetch("https://webhook.site/65240bdf-b0e0-4a90-9a32-61ac4568473b", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ width, height }),
+      });
+      console.log("Webhook enviado:", { width, height });
+    } catch (err) {
+      console.error("Error al enviar el webhook:", err);
     }
-  </script>
+  }
+</script>
 </body>
 </html>
